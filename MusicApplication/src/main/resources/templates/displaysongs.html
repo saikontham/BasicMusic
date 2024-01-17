@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Display Songs</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+<div class="bg-white p-8 rounded shadow-md w-full max-w-screen-xl mx-auto">
+    <h2 class="text-2xl font-semibold mb-4">Display Songs</h2>
+
+    <!-- Song List -->
+    <table class="w-full border mb-4">
+        <thead>
+        <tr>
+            <th class="border p-2 w-1/4">Name</th> <!-- Adjusted width -->
+            <th class="border p-2 w-1/4">Artist</th> <!-- Adjusted width -->
+            <th class="border p-2 w-1/4">Genre</th> <!-- Adjusted width -->
+            <th class="border p-2 w-1/4">Play</th> <!-- Adjusted width -->
+        </tr>
+        </thead>
+
+        <tbody>
+        <!-- Use Thymeleaf each loop to iterate over songs -->
+        <tr th:each="song : ${songs}">
+            <!-- Display song information with adjusted widths and centered text -->
+            <td class="border p-2 w-1/4 text-center" th:text="${song.songName}"></td>
+            <td class="border p-2 w-1/4 text-center" th:text="${song.artist}"></td>
+            <td class="border p-2 w-1/4 text-center" th:text="${song.genre}"></td>
+            <td class="border p-2 w-1/4">
+                <!-- Audio Player with Increased Width and Padding -->
+                <div class="w-full p-8">
+                    <audio controls class="w-full">
+                        <source th:src="${song.link}" type="audio/mpeg">
+                    </audio>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <!-- Add Song Link -->
+    <div class="flex items-center justify-center">
+        <a href="addsongs" class="w-40 bg-indigo-500 text-white p-2 rounded mb-2 hover:bg-indigo-600 focus:outline-none focus:ring focus:border-indigo-300 block text-center">
+            Add Song
+        </a>
+    </div>
+
+    <!-- Go Back Link -->
+    <a href="adminhome" class="text-blue-500 mt-4 block text-center">Go Back</a>
+</div>
+
+</body>
+</html>

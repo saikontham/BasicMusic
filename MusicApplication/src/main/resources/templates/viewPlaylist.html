@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Playlists</title>
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+
+<div class="max-w-3xl mx-auto">
+    <h2 class="text-3xl font-bold mb-8">Playlists</h2>
+
+    <!-- Check if there are playlists to display -->
+    <div th:if="${not #lists.isEmpty(playlists)}">
+        <!-- Iterate over each playlist in the model -->
+        <div th:each="playlist : ${playlists}" class="mb-8">
+            <div class="border p-4 rounded shadow-md bg-white">
+                <h3 class="text-xl font-semibold mb-4" th:text="${playlist.playlistName}"></h3>
+                <!-- You can uncomment the following line if 'description' is available in your Playlist class -->
+                <!-- <p th:text="${playlist.description}"></p>-->
+
+                <!-- Display songs associated with the playlist -->
+                <ul class="list-disc pl-4">
+                    <li th:each="song : ${playlist.songs}" class="mb-2">
+                        <span th:text="${song.songName}" class="font-semibold"></span> - <span th:text="${song.artist}" class="text-gray-600"></span>
+
+                        <!-- Audio Player -->
+                        <audio controls class="w-full mt-2">
+                            <source th:src="${song.link}" type="audio/mpeg">
+                            Your browser does not support the audio tag.
+                        </audio>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display a message if no playlists are available -->
+    <div th:if="${#lists.isEmpty(playlists)}">
+        <p class="text-gray-600">No playlists available.</p>
+    </div>
+</div>
+
+</body>
+</html>
